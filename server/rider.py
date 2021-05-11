@@ -1,3 +1,3 @@
-from schemas.base import db
+from src.schemas.base import db
 
 db = db
