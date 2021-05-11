@@ -1,11 +1,10 @@
 import copy
 
 from functools import wraps
-from flask.json import jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask import session
+from flask import session, jsonify
 
-from schemas.user import User
+from src.schemas.user import User
 
 
 def login_by_email(email, password):

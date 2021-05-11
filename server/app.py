@@ -8,7 +8,7 @@ from flask import Flask, jsonify
 from flask_session import Session
 from flask_cors import CORS
 
-from schemas.base import db
+from src.schemas.base import db
 from config import config
 
 app = Flask(__name__)
@@ -18,11 +18,11 @@ app.config["SESSION_REDIS"] = redis.from_url(config["REDIS_URL"])
 Session(app)
 CORS(app)
 
-route_path = Path(dirname(__file__) + "/routes").resolve()
+route_path = Path(dirname(__file__) + "/src/routes").resolve()
 routes = [basename(f)[:-3] for f in glob.glob(join(route_path, "*.py")) if isfile(f)]
 
 for route in routes:
-    module = importlib.import_module(f"routes.{route}")
+    module = importlib.import_module(f"src.routes.{route}")
     app.register_blueprint(module.bl, url_prefix=f"/{route}")
 
 

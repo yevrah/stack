@@ -6,7 +6,7 @@
 
 ## Setup/Development
 
-Installed dependencies:
+Install dependencies:
 
 ```
 npm i

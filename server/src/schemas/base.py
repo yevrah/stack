@@ -30,7 +30,7 @@ def cast_date(date):
             except ValueError:
                 pass
 
-        raise ValueError("no valid date format found for " + str(date))
+        raise ValueError("No valid date format found for " + str(date))
 
     return None
 
