@@ -6,7 +6,7 @@ from src.modules.auth import login_by_email, register_user
 bl = Blueprint("auth", __name__)
 
 
-@bl.route("/login", methods=["POST"])
+@bl.post("/login")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -24,7 +24,7 @@ def login():
     return jsonify({"user": user, "auth_token": auth})
 
 
-@bl.route("/register", methods=["POST"])
+@bl.post("/register")
 def register():
     email = request.json.get("email")
     password1 = request.json.get("password1")
@@ -46,7 +46,7 @@ def register():
     return jsonify({"user": user, "auth_token": auth})
 
 
-@bl.route("/me", methods=["GET"])
+@bl.get("/me")
 @jwt_required()
 def me():
     return jsonify({"user": {**current_user}})
