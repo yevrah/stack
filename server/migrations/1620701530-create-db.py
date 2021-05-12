@@ -24,17 +24,16 @@ steps = [
             updated timestamp default now() not null,
             tombstoned timestamp null
         );
-    """
+    """,
+        rollback="drop table users",
     ),
-
-    #
     # Test data - TODO: remove
-    #
-
-    step(f"""
+    step(
+        f"""
         insert into users (email, type, password)
             values ('astolfo@email.com', 'user', '{pw}');
         insert into users (email, type, password)
             values ('matthieu@email.com', 'user', '{pw}');
-    """),
+    """
+    ),
 ]

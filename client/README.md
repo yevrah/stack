@@ -31,6 +31,6 @@ npm run dev -- --open
 ## Important Libraries
 
 - [SvelteKit](https://kit.svelte.dev)
-- [TailwindCSS](https://tailwindcss.com)
+- [Tailwind CSS](https://tailwindcss.com)
 - [svelte-forms-lib](https://svelte-forms-lib-sapper-docs.vercel.app)
 - [Axios](https://axios-http.com)
