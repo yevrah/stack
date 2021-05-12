@@ -1,6 +1,17 @@
-const isAuthorized = async ({ page }) => {
-  // TODO: fix
-  let userType = null;
+import { get } from 'svelte/store';
+import { user } from '$lib/stores';
+import ax from '$lib/axios';
+
+export const isAuthorized = async (path) => {
+  let u = get(user);
+
+  if (!u.email) {
+    try {
+      const res = await ax.get('/auth/me');
+      user.set(res.data.user);
+      u = res.data.user;
+    } catch (_) { }
+  }
 
   const routePermissions = {
     '/': ['user'],
@@ -8,11 +19,11 @@ const isAuthorized = async ({ page }) => {
     '/register': ['all']
   };
 
-  const route = routePermissions[page.path];
+  const route = routePermissions[path];
 
-  if (route[0] === 'all') return {};
+  if (route[0] === 'all') return [{ user }, true];
 
-  return route.indexOf(userType) >= 0 ? {} : { status: 302, redirect: '/login' };
+  return route.indexOf(u.type) >= 0
+    ? [{ user }, true]
+    : [{ status: 302, redirect: '/login' }, false];
 };
-
-export default isAuthorized;

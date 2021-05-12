@@ -6,6 +6,7 @@ from apocryphes.rider import step
 
 __depends__ = {""}
 
+# PW == password123
 pw = (
     "pbkdf2:sha256:150000$4QU8ECxW$2b65956dda981f9ff"
     "eeb8aa3002e18b2569fae81cdc7d73f6dd38214fc6364af"

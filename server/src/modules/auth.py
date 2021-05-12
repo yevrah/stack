@@ -1,8 +1,5 @@
-import copy
-
-from functools import wraps
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask import session, jsonify
+from flask_jwt_extended import create_access_token, get_jwt_identity
 
 from src.schemas.user import User
 
@@ -12,15 +9,16 @@ def login_by_email(email, password):
 
     if user is None:
         return None, {
-            "error": "Oops! Your email and password don't match. Please check again."
+            "msg": "Oops! Your email and password don't match. Please check again."
         }
 
     if check_password_hash(user["password"], password) is False:
         return None, {
-            "error": "Oops! Your email and password don't match. Please check again."
+            "msg": "Oops! Your email and password don't match. Please check again."
         }
 
-    session["user"] = copy.deepcopy(user)
+    user["auth"] = create_access_token(identity=user)
+
     del user["password"]
 
     return user, None
@@ -32,30 +30,8 @@ def register_user(email, password):
     )
 
     if user is not None:
-        session["user"] = copy.deepcopy(user)
         del user["password"]
 
+    user["auth"] = create_access_token(identity=user["email"])
+
     return user, error
-
-
-def logout_user():
-    if "user" in session:
-        session.pop("user")
-
-    return True, None
-
-
-def protected():
-    def decorator(func):
-        @wraps(func)
-        def decorated_view(*args, **kwargs):
-            user = session.get("user")
-
-            if user is None:
-                return jsonify({"error": "Unauthorized", "status": 403}), 403
-
-            return func(*args, **kwargs)
-
-        return decorated_view
-
-    return decorator

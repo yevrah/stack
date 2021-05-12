@@ -4,7 +4,6 @@
 
 * Python 3.7+
 * PostgreSQL 11+
-* Redis 6.2+
 
 ## Setup/Development
 

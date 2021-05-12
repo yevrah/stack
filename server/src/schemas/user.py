@@ -11,9 +11,14 @@ class User(BaseSchema):
 
     @classmethod
     def get_by_email(cls, email):
-        return (
+        user = (
             Query(cls)
             .get_or_none()
-            .where(cls.email == email, op.not_null(cls.tombstoned))
+            .where(cls.email == email, op.is_null(cls.tombstoned))
             .execute()
         )
+
+        if user:
+            user["type"] = "user"
+
+        return user

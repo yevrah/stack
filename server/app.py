@@ -1,22 +1,21 @@
 import importlib
 import glob
-import redis
 
 from pathlib import Path
 from os.path import dirname, basename, isfile, join
 from flask import Flask, jsonify
-from flask_session import Session
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
 from src.schemas.base import db
+from src.schemas.user import User
 from config import config
 
 app = Flask(__name__)
 
-app.config["SESSION_TYPE"] = "redis"
-app.config["SESSION_REDIS"] = redis.from_url(config["REDIS_URL"])
-Session(app)
-CORS(app)
+app.config["JWT_SECRET_KEY"] = config["SECRET_KEY"]
+jwt = JWTManager(app)
+CORS(app, supports_credentials=True)
 
 route_path = Path(dirname(__file__) + "/src/routes").resolve()
 routes = [basename(f)[:-3] for f in glob.glob(join(route_path, "*.py")) if isfile(f)]
@@ -38,12 +37,18 @@ def close_connection(exc):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return jsonify({"error": "Not found", "status": 404}), 404
+    return jsonify({"msg": "Not found", "status": 404}), 404
 
 
 @app.errorhandler(500)
 def page_bad(e):
-    return jsonify({"error": "Internal server error", "status": 500}), 500
+    return jsonify({"msg": "Internal server error", "status": 500}), 500
+
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return User.get_by_email(identity["email"])
 
 
 if __name__ == "__main__":
