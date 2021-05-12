@@ -26,6 +26,15 @@ ax.interceptors.request.use((config) => {
   return config;
 });
 
-createAuthRefreshInterceptor(ax, refreshAuthLogic);
+try {
+  createAuthRefreshInterceptor(ax, refreshAuthLogic);
+} catch (_) {
+  // TODO: remove eventually
+  // For some reason sveltekit-build thinks `createAuthRefreshInterceptor` is a module
+  // and not the exported function.
+  // Who knows why but I'm sure it's a bug, so whenever adapter-node is updated, just
+  // remove this and check if it builds.
+  createAuthRefreshInterceptor.default(ax, refreshAuthLogic);
+}
 
 export default ax;
