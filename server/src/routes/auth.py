@@ -12,12 +12,12 @@ def login():
     password = request.json.get("password")
 
     if email is None and password is None:
-        return jsonify({"msg": "Missing `email` or `password`", "status": 401}), 401
+        return jsonify({"msg": "Missing `email` or `password`", "status": 400}), 400
 
     user, error = login_by_email(email, password)
 
     if error:
-        return jsonify({**error, "status": 401}), 401
+        return jsonify({**error, "status": 400}), 400
 
     auth = user.pop("auth")
     refresh = user.pop("refresh")
