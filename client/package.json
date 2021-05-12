@@ -13,6 +13,7 @@
     "svelte-forms-lib": "^1.10.3"
   },
   "devDependencies": {
+    "@sveltejs/adapter-node": "^1.0.0-next.20",
     "@sveltejs/kit": "next",
     "@tailwindcss/forms": "^0.3.2",
     "autoprefixer": "^10.2.5",

@@ -8,7 +8,7 @@
 
     if (ath) {
       const success = await isAuthorized(page.path);
-      return success ? { } : { status: 302, redirect: '/login' };
+      return success ? {} : { status: 302, redirect: '/login' };
     } else {
       return { props: { render: false } };
     }

@@ -32,6 +32,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Login</title>
+</svelte:head>
+
 <div class="flex flex-col items-center justify-center w-screen h-screen min-h-full bg-gray-200">
   <div class="flex flex-col items-center w-1/4">
     <p class="mb-2 text-2xl">Login</p>

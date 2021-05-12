@@ -1,3 +1,4 @@
+import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -7,7 +8,8 @@ const config = {
     })
   ],
   kit: {
-    target: '#svelte'
+    target: '#svelte',
+    adapter: adapter({ out: 'build' })
   }
 };
 

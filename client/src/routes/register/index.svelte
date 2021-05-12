@@ -14,7 +14,7 @@
       password1: '',
       password2: ''
     },
-    validate: values => {
+    validate: (values) => {
       if (values.password1 !== values.password2) {
         error = 'Passwords do not match';
       }
@@ -37,6 +37,10 @@
     }
   });
 </script>
+
+<svelte:head>
+  <title>Register</title>
+</svelte:head>
 
 <div class="flex flex-col items-center justify-center w-screen h-screen min-h-full bg-gray-200">
   <div class="flex flex-col items-center w-1/4">
