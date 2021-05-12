@@ -2,7 +2,7 @@ import datetime
 import dateutil.parser
 
 from apocryphes.pool import PooledPostgreSQLDatabase
-from estoult import Field, FieldError
+from estoult import Field, FieldError, fn, Query
 
 from config import config
 
@@ -10,7 +10,7 @@ db = PooledPostgreSQLDatabase(
     host=config["DB_HOST"],
     database=config["DB_NAME"],
     user=config["DB_USER"],
-    password=config["DB_PASSWORD"]
+    password=config["DB_PASSWORD"],
 )
 
 
@@ -65,3 +65,12 @@ class BaseSchema(db.Schema):
             return super().insert(*args, **kwargs), None
         except FieldError as e:
             return None, e.args[0]
+
+    @classmethod
+    def get_by_id(cls, id):
+        return (
+            Query(cls)
+            .select()
+            .where(cls.id == id, fn.is_null(cls.tombstoned))
+            .execute()
+        )
