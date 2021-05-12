@@ -19,7 +19,7 @@ export const isAuthorized = async (path) => {
     '/login': ['all'],
     '/register': ['all'],
     '/': ['user'],
-    '/profile': ['user'],
+    '/profile': ['user']
   };
 
   const route = routePermissions[path];
