@@ -8,6 +8,7 @@ class User(BaseSchema):
 
     email = Field(str)
     password = Field(str)
+    type = Field(str, default="user")
 
     @classmethod
     def get_by_email(cls, email):
@@ -17,8 +18,5 @@ class User(BaseSchema):
             .where(cls.email == email, op.is_null(cls.tombstoned))
             .execute()
         )
-
-        if user:
-            user["type"] = "user"
 
         return user

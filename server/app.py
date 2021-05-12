@@ -12,8 +12,9 @@ from src.schemas.user import User
 from config import config
 
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = config["JWT_SECRET_KEY"]
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = config["JWT_EXPIRES_SECS"]
 
-app.config["JWT_SECRET_KEY"] = config["SECRET_KEY"]
 jwt = JWTManager(app)
 CORS(app, supports_credentials=True)
 
@@ -48,7 +49,7 @@ def page_bad(e):
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
-    return User.get_by_email(identity["email"])
+    return identity
 
 
 if __name__ == "__main__":

@@ -32,6 +32,6 @@ def register_user(email, password):
     if user is not None:
         del user["password"]
 
-    user["auth"] = create_access_token(identity=user["email"])
+    user["auth"] = create_access_token(identity=user)
 
     return user, error

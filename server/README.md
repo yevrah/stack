@@ -32,3 +32,9 @@ Start the server:
 ```
 python3 app.py
 ```
+
+## Important Libraries
+
+* [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+* [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
+* [Estoult](https://estoult.readthedocs.io/en/latest/)

@@ -10,7 +10,9 @@ export const isAuthorized = async (path) => {
       const res = await ax.get('/auth/me');
       user.set(res.data.user);
       u = res.data.user;
-    } catch (_) { }
+    } catch (_) {
+      u = {};
+    }
   }
 
   const routePermissions = {
@@ -21,9 +23,7 @@ export const isAuthorized = async (path) => {
 
   const route = routePermissions[path];
 
-  if (route[0] === 'all') return [{ user }, true];
+  if (route[0] === 'all') return true;
 
-  return route.indexOf(u.type) >= 0
-    ? [{ user }, true]
-    : [{ status: 302, redirect: '/login' }, false];
+  return route.indexOf(u.type) >= 0;
 };

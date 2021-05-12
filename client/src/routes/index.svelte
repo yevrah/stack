@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a class="text-blue-600 underline" href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  import { user } from '$lib/stores';
+</script>
+
+<div class="flex flex-col items-center justify-center">
+  <p class="text-4xl">Bienvenue À Les Fans D'Astolfo</p>
+  <p>You are logged in as: {$user.email}</p>
+</div>

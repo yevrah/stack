@@ -18,6 +18,7 @@ steps = [
         create table users (
             id serial primary key,
             email varchar(128) not null,
+            type varchar(56) not null,
             password varchar(128) not null,
             created timestamp default now() not null,
             updated timestamp default now() not null,
