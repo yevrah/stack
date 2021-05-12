@@ -1,5 +1,5 @@
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_jwt_extended import create_access_token, get_jwt_identity, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 
 from src.schemas.user import User
 

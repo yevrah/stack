@@ -1,4 +1,3 @@
-from os import access
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, current_user, create_access_token
 

@@ -1,0 +1,34 @@
+name: "client"
+
+on:
+  push:
+    paths:
+      - "client/**"
+      - ".github/workflows/client.yaml"
+  pull_request:
+    paths:
+      - "client/**"
+      - ".github/workflows/client.yaml"
+
+defaults:
+  run:
+    working-directory: server
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: |
+          npm i
+      - name: Lint with ESLint
+        run: |
+          npm run lint
+      - name: Run build
+        run: |
+          npm run build
