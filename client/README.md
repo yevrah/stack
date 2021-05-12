@@ -12,7 +12,7 @@ Install dependencies:
 npm i
 ```
 
-Add an `.env` file. For example:
+Add an `.env` file.
 
 ```
 # See: https://vitejs.dev/guide/env-and-mode.html
@@ -23,9 +23,6 @@ Start the development server:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
 ## Important Libraries

@@ -13,7 +13,7 @@ Install requirements:
 pip install -r requirements_dev.txt
 ```
 
-Add an `.env` file for API keys or database connection settings. For example:
+Add an `.env` file for API keys or database connection settings.
 
 ```
 # See config.py for all variables
