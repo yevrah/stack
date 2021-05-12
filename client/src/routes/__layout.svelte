@@ -1,13 +1,12 @@
 <script>
   import '../app.postcss';
 
-  import Sidebar from '$lib/components/Sidebar.svelte';
-
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
 
+  import Sidebar from '$lib/components/Sidebar.svelte';
+
   import { isAuthorized } from '$lib/auth';
-  import { get } from 'svelte/store';
 
   let render = false;
 
