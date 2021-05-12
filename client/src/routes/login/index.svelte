@@ -2,9 +2,8 @@
   import { createForm } from 'svelte-forms-lib';
   import { goto } from '$app/navigation';
 
-  import ax from '$lib/axios';
+  import axios from 'axios';
   import { user } from '$lib/stores';
-  import auth from '$lib/stores/auth';
 
   let error = '';
 
@@ -17,13 +16,13 @@
       error = '';
 
       try {
-        const res = await ax.post('/auth/login', values);
+        const res = await axios.post('/auth/login', values);
 
         user.set(res.data.user);
-        auth.set(res.data.auth_token);
         localStorage.setItem('auth_token', res.data.auth_token);
+        localStorage.setItem('refresh_token', res.data.refresh_token);
 
-        goto('/');
+        await goto('/');
       } catch (e) {
         const err = e.response.data;
         error = err.msg;

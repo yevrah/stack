@@ -1,5 +1,6 @@
+from os import access
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, current_user
+from flask_jwt_extended import jwt_required, current_user, create_access_token
 
 from src.modules.auth import login_by_email, register_user
 
@@ -20,8 +21,9 @@ def login():
         return jsonify({**error, "status": 401}), 401
 
     auth = user.pop("auth")
+    refresh = user.pop("refresh")
 
-    return jsonify({"user": user, "auth_token": auth})
+    return jsonify({"user": user, "auth_token": auth, "refresh_token": refresh})
 
 
 @bl.post("/register")
@@ -42,8 +44,17 @@ def register():
         return jsonify({**error, "status": 400}), 400
 
     auth = user.pop("auth")
+    refresh = user.pop("refresh")
 
-    return jsonify({"user": user, "auth_token": auth})
+    return jsonify({"user": user, "auth_token": auth, "refresh_token": refresh})
+
+
+@bl.post("/refresh")
+@jwt_required(refresh=True)
+def refresh():
+    return jsonify(
+        auth_token=create_access_token(fresh=False, identity={**current_user})
+    )
 
 
 @bl.get("/me")

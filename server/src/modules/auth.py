@@ -1,5 +1,5 @@
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_jwt_extended import create_access_token, get_jwt_identity
+from flask_jwt_extended import create_access_token, get_jwt_identity, create_refresh_token
 
 from src.schemas.user import User
 
@@ -19,6 +19,7 @@ def login_by_email(email, password):
 
     del user["password"]
     user["auth"] = create_access_token(identity=user)
+    user["refresh"] = create_refresh_token(identity=user)
 
     return user, None
 
@@ -31,5 +32,6 @@ def register_user(email, password):
     if user is not None:
         del user["password"]
         user["auth"] = create_access_token(identity=user)
+        user["refresh"] = create_refresh_token(identity=user)
 
     return user, error

@@ -14,6 +14,7 @@ from config import config
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = config["JWT_SECRET_KEY"]
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = config["JWT_EXPIRES_SECS"]
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = config["JWT_REFRESH_EXPIRES_SECS"]
 
 jwt = JWTManager(app)
 CORS(app, supports_credentials=True)

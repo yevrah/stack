@@ -3,10 +3,10 @@
 </script>
 
 <svelte:head>
-  <title>Les Fans D'Astolfo</title>
+  <title>Profile</title>
 </svelte:head>
 
 <div>
-  <p class="text-4xl">Bienvenue À Les Fans D'Astolfo</p>
+  <p class="text-4xl">Profile Page</p>
   <p>You are logged in as: {$user.email}</p>
 </div>

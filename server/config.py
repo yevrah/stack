@@ -5,8 +5,13 @@ load_dotenv()
 
 config = {
     # TODO: Change secret key
-    "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY", "\x98X\xfd\x8a\x87\xfb\xf7k\x11\xfe\xcb\xc1"),
-    "JWT_EXPIRES_SECS": os.getenv("JWT_EXPIRES_SECS", 259200),
+    "JWT_SECRET_KEY": os.getenv(
+        "JWT_SECRET_KEY", "\x98X\xfd\x8a\x87\xfb\xf7k\x11\xfe\xcb\xc1"
+    ),
+    "JWT_EXPIRES_SECS": os.getenv("JWT_EXPIRES_SECS", 3600),  # 1 hour
+    "JWT_REFRESH_EXPIRES_SECS": os.getenv(
+        "JWT_REFRESH_EXPIRES_SECS", 2592000
+    ),  # 30 days
     # TODO: change default with your db
     "DB_NAME": os.getenv("DB_NAME", "stack"),
     "DB_HOST": os.getenv("DB_HOST", "localhost"),

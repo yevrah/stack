@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "axios-auth-refresh": "^3.1.0",
     "svelte-forms-lib": "^1.10.3"
   },
   "devDependencies": {
