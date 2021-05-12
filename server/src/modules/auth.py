@@ -17,9 +17,8 @@ def login_by_email(email, password):
             "msg": "Oops! Your email and password don't match. Please check again."
         }
 
-    user["auth"] = create_access_token(identity=user)
-
     del user["password"]
+    user["auth"] = create_access_token(identity=user)
 
     return user, None
 
@@ -31,7 +30,6 @@ def register_user(email, password):
 
     if user is not None:
         del user["password"]
-
-    user["auth"] = create_access_token(identity=user)
+        user["auth"] = create_access_token(identity=user)
 
     return user, error
