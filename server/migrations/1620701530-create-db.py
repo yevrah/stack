@@ -32,7 +32,9 @@ steps = [
     #
 
     step(f"""
-        insert into users (email, password) values ('astolfo@email.com', '{pw}');
-        insert into users (email, password) values ('matthieu@email.com', '{pw}');
+        insert into users (email, type, password)
+            values ('astolfo@email.com', 'user', '{pw}');
+        insert into users (email, type, password)
+            values ('matthieu@email.com', 'user', '{pw}');
     """),
 ]
