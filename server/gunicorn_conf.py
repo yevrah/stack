@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import json
 import multiprocessing
 import os
@@ -19,6 +17,7 @@ else:
 cores = multiprocessing.cpu_count()
 workers_per_core = float(workers_per_core_str)
 default_web_concurrency = workers_per_core * cores
+
 if web_concurrency_str:
     web_concurrency = int(web_concurrency_str)
     assert web_concurrency > 0
