@@ -1,5 +1,8 @@
+import { get } from 'svelte/store';
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+
+import auth from '$lib/stores/auth';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
@@ -15,11 +18,10 @@ const refreshAuthLogic = async (failedRequest) => {
   );
 
   localStorage.setItem('auth_token', res.data.auth_token);
-  failedRequest.response.config.headers['Authorization'] = 'Bearer ' + res.data.auth_token;
-  return;
+  failedRequest.response.config.headers['Authorization'] = `Bearer ${res.data.auth_token}`;
 };
 
-const getToken = () => localStorage.getItem('auth_token');
+const getToken = () => get(auth);
 
 ax.interceptors.request.use((config) => {
   if (getToken()) config.headers.Authorization = `Bearer ${getToken()}`;
