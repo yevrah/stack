@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import axios from 'axios';
 
   let mainClass;
   let mobile = false;
@@ -14,10 +15,9 @@
     });
   });
 
-  const logout = () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('refresh_token');
-    goto('/login');
+  const logout = async () => {
+    await axios.delete('/logout');
+    await goto('/login');
   };
 
   const toggleSidebar = () => {

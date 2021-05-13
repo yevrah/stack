@@ -15,6 +15,8 @@ export const isAuthorized = async (path) => {
     }
   }
 
+  if (!u.email) return false;
+
   const routePermissions = {
     '/login': ['all'],
     '/register': ['all'],

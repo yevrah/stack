@@ -4,7 +4,7 @@
 
   import axios from 'axios';
   import { user } from '$lib/stores';
-  import auth from '$lib/stores/auth';
+  import { auth, refresh } from '$lib/stores/auth';
 
   let error = '';
 
@@ -17,12 +17,11 @@
       error = '';
 
       try {
-        const res = await axios.post('/auth/login', values);
+        const res = await axios.post('/login', values);
 
-        // `user` and `auth` is stored in memory
         user.set(res.data.user);
         auth.set(res.data.auth_token);
-        localStorage.setItem('refresh_token', res.data.refresh_token);
+        refresh.set(res.data.refresh_token);
 
         await goto('/');
       } catch (e) {

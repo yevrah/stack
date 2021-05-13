@@ -1,24 +1,32 @@
 import { get } from 'svelte/store';
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import { goto } from '$app/navigation';
 
-import auth from '$lib/stores/auth';
+import { auth, refresh } from '$lib/stores/auth';
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
-
-const ax = axios.create();
+const ax = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
 
 const refreshAuthLogic = async (failedRequest) => {
-  const refresh = localStorage.getItem('refresh_token') || '';
+  try {
+    const res = await axios.post(
+      '/auth/refresh',
+      {},
+      {
+        headers: { Authorization: `Bearer ${get(refresh)}` },
+        baseURL: import.meta.env.VITE_API_URL
+      }
+    );
 
-  const res = await axios.post(
-    '/auth/refresh',
-    {},
-    { headers: { Authorization: `Bearer ${refresh}` } }
-  );
-
-  localStorage.setItem('auth_token', res.data.auth_token);
-  failedRequest.response.config.headers['Authorization'] = `Bearer ${res.data.auth_token}`;
+    auth.set(res.data.auth_token);
+    failedRequest.response.config.headers['Authorization'] = `Bearer ${res.data.auth_token}`;
+  } catch (_) {
+    // If the orignal request failed, and we can't refresh the token then we redirect them to login
+    await goto('/login');
+    return;
+  }
 };
 
 const getToken = () => get(auth);
@@ -28,15 +36,17 @@ ax.interceptors.request.use((config) => {
   return config;
 });
 
+const onRetry = (requestConfig) => ({ ...requestConfig, baseURL: import.meta.env.VITE_API_URL });
+
 try {
-  createAuthRefreshInterceptor(ax, refreshAuthLogic);
+  createAuthRefreshInterceptor(ax, refreshAuthLogic, { onRetry });
 } catch (_) {
   // TODO: remove eventually
   // For some reason sveltekit-build thinks `createAuthRefreshInterceptor` is a module
   // and not the exported function.
   // Who knows why but I'm sure it's a bug, so whenever adapter-node is updated, just
   // remove this and check if it builds.
-  createAuthRefreshInterceptor.default(ax, refreshAuthLogic);
+  createAuthRefreshInterceptor.default(ax, refreshAuthLogic, { onRetry });
 }
 
 export default ax;

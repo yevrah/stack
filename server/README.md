@@ -17,6 +17,11 @@ Add an `.env` file for API keys or database connection settings.
 
 ```
 # See config.py for all variables
+
+# Secret for JWTs must make your own one!!!
+JWT_SECRET_KEY=<secret>
+
+# Database variables
 DB_USER=<user>
 DB_PASSWORD=<password>
 ```

@@ -1,6 +1,5 @@
-# Localhost docker-compose for testing
-# Create overrides for other environments
-# https://docs.docker.com/compose/extends
+# Localhost docker-compose for testing docker builds (assumes postgres on host)
+# You should create overrides for other environments: https://docs.docker.com/compose/extends
 version: '3.6'
 
 services:
@@ -18,7 +17,8 @@ services:
     build:
       context: client/.
       args:
-        VITE_API_URL: http://127.0.0.1:5000
+        VITE_API_URL: http://server:5000
+        VITE_SECRET_KEY: 7c147ee595e49aef6febd277ed36eb2ad3535c7ecd6f818f6da34b7093f1ded4
     ports:
       - 127.0.0.1:3000:3000
     depends_on:
