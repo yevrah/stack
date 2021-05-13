@@ -1,8 +1,6 @@
 flask==2.0.0
 flask-cors==3.0.10
-# TODO: change back to pypi package
-# flask-jwt-extended is not updated to allow using Flask 2.0.0 yet
--e git+https://github.com/beanpuppy/flask-jwt-extended#egg=flask-jwt-extended
+flask-jwt-extended==4.2.1
 psycopg2-binary==2.8.6
 estoult==0.7.6
 python_dotenv==0.17.1
