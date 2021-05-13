@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- NodeJS 10+
+- NodeJS >= v14.x
 
 ## Setup/Development
 

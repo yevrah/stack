@@ -1,12 +1,14 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, current_user, create_access_token
+from flask_jwt_extended import jwt_required, current_user, create_access_token, get_jwt
 
+from config import config
+from src.modules.redis import red
 from src.modules.auth import login_by_email, register_user
 
 bl = Blueprint("auth", __name__)
 
 
-@bl.post("/login")
+@bl.post("/token")
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -54,6 +56,14 @@ def refresh():
     return jsonify(
         auth_token=create_access_token(fresh=False, identity={**current_user})
     )
+
+
+@bl.delete("/revoke")
+@jwt_required()
+def logout():
+    jti = get_jwt()["jti"]
+    red.set(jti, "", ex=config["JWT_EXPIRES"])
+    return jsonify(msg="Access token revoked")
 
 
 @bl.get("/me")

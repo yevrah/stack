@@ -2,8 +2,9 @@
 
 ## Requirements
 
-* Python 3.7+
-* PostgreSQL 11+
+* Python >= v3.7
+* PostgreSQL >= v13.x
+* Redis >= v6.x
 
 ## Setup/Development
 

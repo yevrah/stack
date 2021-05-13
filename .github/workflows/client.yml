@@ -25,10 +25,10 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: |
-          npm i
+          npm install
       - name: Lint with ESLint
         run: |
           npm run lint
-      - name: Run build
-        run: |
-          npm run build
+      # - name: Run build
+      #   run: |
+      #     npm run build

@@ -7,9 +7,9 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
-from src.schemas.base import db
-from src.schemas.user import User
 from config import config
+from src.schemas.base import db
+from src.modules.redis import red
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = config["JWT_SECRET_KEY"]
@@ -51,6 +51,13 @@ def page_bad(e):
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
     return identity
+
+
+@jwt.token_in_blocklist_loader
+def check_if_token_is_revoked(jwt_header, jwt_payload):
+    jti = jwt_payload["jti"]
+    token_in_redis = red.get(jti)
+    return token_in_redis is not None
 
 
 if __name__ == "__main__":

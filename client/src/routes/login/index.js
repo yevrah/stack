@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const post = async ({ locals, body }) => {
   try {
-    const res = await axios.post('/auth/login', body, { baseURL: import.meta.env.VITE_API_URL });
+    const res = await axios.post('/auth/token', body, { baseURL: import.meta.env.VITE_API_URL });
     locals.session.data = { refresh_token: res.data.refresh_token };
 
     return {
