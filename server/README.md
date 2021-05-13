@@ -16,9 +16,10 @@ pip install -r requirements_dev.txt
 Add an `.env` file for API keys or database connection settings.
 
 ```
-# See config.py for all variables
+# See `config.py` for all variables.
 
-# Secret for JWTs must make your own one!!!
+# Secret for JWTs. You must make your own one!!!
+# For example, by using: `openssl rand -base64 32`
 JWT_SECRET_KEY=<secret>
 
 # Database variables
