@@ -2,10 +2,12 @@ name: "server"
 
 on:
   push:
+    branches: [ master ]
     paths:
       - "server/**"
       - ".github/workflows/server.yml"
   pull_request:
+    branches: [ master ]
     paths:
       - "server/**"
       - ".github/workflows/server.yml"

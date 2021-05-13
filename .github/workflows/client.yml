@@ -2,10 +2,12 @@ name: "client"
 
 on:
   push:
+    branches: [ master ]
     paths:
       - "client/**"
       - ".github/workflows/client.yml"
   pull_request:
+    branches: [ master ]
     paths:
       - "client/**"
       - ".github/workflows/client.yml"
