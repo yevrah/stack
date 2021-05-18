@@ -6,7 +6,7 @@ This document outlines the most used helper functions/modules throughout the sta
 
 - `ax` from `$lib/axios`.
 
-This is `axios` instance that has the `VITE_API_URL` set as its' base and deals with automatically refreshing the users' access token if it has expired. This should always be used unless you want to make an unauthenticated request or make a request to a different domain.
+This is and `axios` instance that has the `VITE_API_URL` set as its base and deals with automatically refreshing the users' access token if it has expired. This should always be used unless you want to make an unauthenticated request or make a request to a different domain.
 
 Example usage:
 
@@ -37,7 +37,7 @@ return user, 200
 
 - `get_by_id` from `src.schemas.base.BaseSchema`.
 
-Gets a row by its' `id` and returns `None` if it doesn't exist.
+Gets a row by its `id` and returns `None` if it doesn't exist.
 
 Example usage:
 
