@@ -1,6 +1,6 @@
 # Commonly Used Helper Functions
 
-This document outlines the most used helper functions/modules through out the stack.
+This document outlines the most used helper functions/modules throughout the stack.
 
 ## Client
 
