@@ -6,7 +6,7 @@ This document outlines the most used helper functions/modules throughout the sta
 
 - `ax` from `$lib/axios`.
 
-This is and `axios` instance that has the `VITE_API_URL` set as its base and deals with automatically refreshing the users' access token if it has expired. This should always be used unless you want to make an unauthenticated request or make a request to a different domain.
+This is an `axios` instance that has the `VITE_API_URL` set as its base and deals with automatically refreshing the users' access token if it has expired. This should always be used instead of the default `axios` unless you want to make an unauthenticated request or make a request to a different domain.
 
 Example usage:
 
@@ -20,7 +20,9 @@ let res = await ax.get('/auth/me');
 
 - `insert_eh`/`update_eh` from `src.schemas.base.BaseSchema`.
 
-These are schema functions to handle errors in the correct fashion (returning a tuple instead of raising an error) and should always be used instead of the normal `insert`/`update`.
+These are schema functions to handle a `FieldError` in the correct fashion (returning a tuple instead of raising an error) and should always be used instead of the normal `insert`/`update`. The error returned is the first argument from the exception raised.
+
+**Only** `FieldError` will be handled, all other errors will still raise, so it's mainly used for validation. You can read about validation in Estoult [here](https://estoult.readthedocs.io/en/latest/how_tos.html#validation).
 
 They also make you Canadian ("eh" stands for "error handle").
 
