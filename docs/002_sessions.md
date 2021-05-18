@@ -28,7 +28,7 @@ Having a front-end server that renders the application server side makes session
 I think it would be better to explain why if we had an example not using SKS as a proxy and pretended this was your normal application.
 
 1. The user types in their login credentials and submits them.
-2. SKA submits the credentials to FS (`/auth/token').
+2. SKA submits the credentials to FS (`/auth/token`).
 4. FS verifies login credentials.
 5. FS creates a JWT (if login credentials are correct, otherwise it returns an error).
 6. FS creates a cookie for SKA to use.
@@ -43,7 +43,7 @@ Okay then if FS can't set a cookie for us, how about we just store the tokens in
 
 **NO!** That's an awful idea, why were you even thinking of that? Honestly, some people...
 
-Cookies are already pretty poor in terms of security, but browser local/session storage is even worse! It's much easier to steal data from them via XSS/CSRF attacks.
+Cookies are already pretty poor in terms of security, but browser local/session stores are even worse! It's much easier to steal data from them via XSS/CSRF attacks.
 
 We also want our sessions to be authorized **during** the server-side rendering process and not **after**. That is, we should check if the user is able to visit a page while SKS is rendering the page instead of after it has been sent to the user. And since local/session storage only exists on the user's browser, we have no way of getting the tokens during the rendering process.
 
