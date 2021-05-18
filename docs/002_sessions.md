@@ -14,26 +14,26 @@ Back? Here are the acronyms you will need to know.
 Now let's go through the login process. I'll explain it after.
 
 1. The user types in their login credentials and submits them.
-2. SKS submits the credentials to SKA (`/login').
-3. SKA proxies the credentials to FS (`/auth/token`).
+2. SKA submits the credentials to SKS (`/login`).
+3. SKS proxies the credentials to FS (`/auth/token`).
 4. FS verifies login credentials.
 5. FS creates a JWT (if login credentials are correct, otherwise it returns an error).
 6. FS returns an auth token and a refresh token back to SKA.
-7. SKA creates a cookie with the refresh token.
-8. SKA returns the auth back to SKS.
-9. SKS redirects the user to the home page.
+7. SKS creates a cookie with the refresh token.
+8. SKS returns the auth back to SKA.
+9. SKA redirects the user to the home page.
 
 Having a front-end server that renders the application server side makes session management a _little_ more complicated than your usual application. Especially in our case, where our API server is in a different language and not what is serving SKA.
 
 I think it would be better to explain why if we had an example not using SKS as a proxy and pretended this was your normal application.
 
 1. The user types in their login credentials and submits them.
-2. SKS submits the credentials to FS (`/auth/token').
+2. SKA submits the credentials to FS (`/auth/token').
 4. FS verifies login credentials.
 5. FS creates a JWT (if login credentials are correct, otherwise it returns an error).
-6. FS creates a cookie for SKS to use.
+6. FS creates a cookie for SKA to use.
 7. FS returns an auth token and a refresh token back to SKS.
-8. SKS redirects the user to the home page.
+8. SKA redirects the user to the home page.
 
 Simpler right? Well kind of, but it also won't work at all.
 
@@ -49,8 +49,8 @@ We also want our sessions to be authorized **during** the server-side rendering 
 
 So, our only real option is to use cookies that are sent to SKS instead of FS. Now when a user requests the page from SKS:
 
-1. The user's browser sends the cookie to SKS.
-2. SKS decrypts the cookie, giving a refresh token.
+1. The user's browser sends its cookies to SKS.
+2. SKS decrypts the cookie, getting a refresh token.
 3. SKS gets an access token from FS using the refresh token.
 3. SKS checks if the user is authorized.
 3. SKS renders SKA and servers it to the user.
