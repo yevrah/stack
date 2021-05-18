@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, current_user, create_access_token, 
 from config import config
 from src.modules.redis import red
 from src.modules.auth import login_by_email, register_user
+from src.schemas.base import db
 
 bl = Blueprint("auth", __name__)
 
@@ -28,6 +29,7 @@ def login():
 
 
 @bl.post("/register")
+@db.atomic()
 def register():
     email = request.json.get("email")
     password1 = request.json.get("password1")

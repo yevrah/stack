@@ -1,9 +1,19 @@
 import { get } from 'svelte/store';
 import { user } from '$lib/stores';
-import ax from '$lib/axios';
+import { auth } from '$lib/stores/auth';
+import ax, { refreshAuth } from '$lib/axios';
 
 export const isAuthorized = async (path) => {
   let u = get(user);
+
+  // Preemptively refresh auth token
+  if (!get(auth)) {
+    try {
+      await refreshAuth();
+    } catch (_) {
+      u = {};
+    }
+  }
 
   if (!u.email) {
     try {

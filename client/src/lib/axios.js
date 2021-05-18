@@ -9,23 +9,28 @@ const ax = axios.create({
   baseURL: import.meta.env.VITE_API_URL
 });
 
+const refreshAuth = async () => {
+  const res = await axios.post(
+    '/auth/refresh',
+    {},
+    {
+      headers: { Authorization: `Bearer ${get(refresh)}` },
+      baseURL: import.meta.env.VITE_API_URL
+    }
+  );
+
+  auth.set(res.data.auth_token);
+
+  return res.data.auth_token;
+};
+
 const refreshAuthLogic = async (failedRequest) => {
   try {
-    const res = await axios.post(
-      '/auth/refresh',
-      {},
-      {
-        headers: { Authorization: `Bearer ${get(refresh)}` },
-        baseURL: import.meta.env.VITE_API_URL
-      }
-    );
-
-    auth.set(res.data.auth_token);
-    failedRequest.response.config.headers['Authorization'] = `Bearer ${res.data.auth_token}`;
+    const auth_token = await refreshAuth();
+    failedRequest.response.config.headers['Authorization'] = `Bearer ${auth_token}`;
   } catch (_) {
     // If the orignal request failed, and we can't refresh the token then we redirect them to login
     await goto('/login');
-    return;
   }
 };
 
@@ -50,3 +55,4 @@ try {
 }
 
 export default ax;
+export { refreshAuth };

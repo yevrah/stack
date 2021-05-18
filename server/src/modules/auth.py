@@ -25,6 +25,11 @@ def login_by_email(email, password):
 
 
 def register_user(email, password):
+    user = User.get_by_email(email)
+
+    if user is not None:
+        return None, {"msg": "This email is already registered."}
+
     user, error = User.insert_eh(
         {"email": email, "password": generate_password_hash(password)}
     )

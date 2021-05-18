@@ -24,7 +24,7 @@ These are schema functions to handle a `FieldError` in the correct fashion (retu
 
 **Only** `FieldError` will be handled, all other errors will still raise, so it's mainly used for validation. You can read about validation in Estoult [here](https://estoult.readthedocs.io/en/latest/how_tos.html#validation).
 
-They also make you Canadian ("eh" stands for "error handle").
+The functions are also from Canada ("eh" stands for "error handle").
 
 Example usage:
 
@@ -32,9 +32,35 @@ Example usage:
 user, error = User.insert(data)
 
 if error is not None:
-  return error, 400
+    return error, 400
 
 return user, 200
+```
+
+- `db.atomic` from `src.schemas.base.db`.
+
+This is actually from the normal Estoult `Database` object, but it's important enough to put here. It runs an entire block as a transaction in the database. You should put this on **every** route that updates or inserts (along with using the Canada functions).
+
+Example usage (as a decorator):
+
+```python
+import db from src.schemas.base.db
+
+@bl.post("/register")
+@db.atomic()
+def register():
+    # Do your stuff here
+    pass
+```
+
+Example usage (as a runtime context):
+
+```python
+import db from src.schemas.base.db
+
+with db.atomic():
+    # Do your stuff here
+    pass
 ```
 
 - `get_by_id` from `src.schemas.base.BaseSchema`.
@@ -47,7 +73,7 @@ Example usage:
 user = User.get_by_id(1337)
 
 if user is None:
-  return {"error": "not found"}, 404
+    return {"error": "not found"}, 404
 
 return user, 200
 ```

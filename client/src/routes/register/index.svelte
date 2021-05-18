@@ -23,7 +23,7 @@
       error = '';
 
       try {
-        const res = await axios.post('/auth/register', values);
+        const res = await axios.post('/register', values);
 
         user.set(res.data.user);
         auth.set(res.data.auth_token);
