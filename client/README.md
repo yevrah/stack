@@ -15,11 +15,12 @@ npm i
 Add an `.env` file.
 
 ```
-# All keys are prefixed with `VITE`.
+# All keys are prefixed with `VITE`
 # See: https://vitejs.dev/guide/env-and-mode.html
 
-# Secret for cookie IDs. You must make your own one!!!
+# Secret for cookie IDs. You must make your own one !!!
 # For example, by using: `openssl rand -base64 32`
+# This is DIFFERENT to the JWT_SECRET_KEY in /server
 VITE_SECRET_KEY=<secret>
 
 # API url
