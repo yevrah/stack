@@ -18,7 +18,7 @@ Now let's go through the login process. I'll explain it after.
 3. SKS proxies the credentials to FS (`/auth/token`).
 4. FS verifies login credentials.
 5. FS creates a JWT (if login credentials are correct, otherwise it returns an error).
-6. FS returns an auth token and a refresh token back to SKA.
+6. FS returns an auth token and a refresh token back to SKS.
 7. SKS creates a cookie with the refresh token.
 8. SKS returns the auth back to SKA.
 9. SKA redirects the user to the home page.
@@ -45,7 +45,7 @@ Okay then, if FS can't set a cookie for us, how about we just store the tokens i
 
 Cookies are already pretty poor in terms of security, but browser local/session stores are even worse! It's much easier to steal data from them via XSS/CSRF attacks.
 
-We also want our sessions to be authorized **during** the server-side rendering process and not **after**. That is, we should check if the user is able to visit a page while SKS is rendering the page instead of after it has been sent to the user and the HTML document has been mounted. And since local/session storage only exists on the user's browser, we have no way of getting the tokens during the rendering process.
+We also want our sessions to be authorized **during** the server-side rendering process and not **after**. That is, we should check if the user is able to visit a page while SKS is rendering the page instead of after it has been sent to the user and the HTML DOM has been mounted. And since local/session storage only exists on the user's browser, we have no way of getting the tokens during the rendering process.
 
 So, our only real option is to use cookies that are sent to SKS instead of FS. Now when a user requests the page from SKS:
 
