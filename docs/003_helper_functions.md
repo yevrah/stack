@@ -29,7 +29,7 @@ The functions are also from Canada ("eh" stands for "error handle").
 Example usage:
 
 ```python
-user, error = User.insert(data)
+user, error = User.insert_eh(data)
 
 if error is not None:
     return error, 400
