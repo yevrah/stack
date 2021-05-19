@@ -37,7 +37,7 @@ if error is not None:
 return user, 200
 ```
 
-- `db.atomic` from `src.schemas.base.db`.
+- `atomic` from `src.schemas.base.db`.
 
 This is actually from the normal Estoult `Database` object, but it's important enough to put here. It runs an entire block as a transaction in the database. You should put this on **every** route that updates or inserts (along with using the Canada functions).
 

@@ -4,7 +4,7 @@ These docs are to help you understand the architecture and design decisions that
 
 Summary:
 
-- 001: High level overview of the architecture with a diagram.
-- 002: Deep dive into user sessions and session management.
-- 003: Looking at helper functions used throughout the codebase.
-- 004: Guide on code linting and formatting.
+- [001:](001_architecture.md) High level overview of the architecture with a diagram.
+- [002:](002_sessions.md) Deep dive into user sessions and session management.
+- [003:](003_helper_functions.md) Looking at helper functions used throughout the codebase.
+- [004:](004_linting.md) Guide on code linting and formatting.
