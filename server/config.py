@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 config = {
-    "JWT_SECRET_KEY": os.getenv(uuid.uuid4()),
+    "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY", uuid.uuid4()),
     "JWT_EXPIRES": os.getenv("JWT_EXPIRES", 900),  # 15 mins
     "JWT_REFRESH_EXPIRES": os.getenv("JWT_REFRESH_EXPIRES", 604800),  # 7 days
     # TODO: change default with your db
